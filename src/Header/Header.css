@@ -1,0 +1,15 @@
+div.app-header {
+  display: flex;
+  flex-direction: row;
+}
+
+div.app-header-links {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+div.app-header-links a {
+  border-bottom: 1px dashed #5C666F;
+}

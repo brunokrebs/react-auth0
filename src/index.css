@@ -1,5 +1,13 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+html, body {
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+  color: #5C666F;
+  line-height: 28px;
+}
+
+a {
+  cursor: pointer;
+  color: #5C666F;
+  text-decoration: none;
 }
