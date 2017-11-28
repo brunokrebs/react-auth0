@@ -8,7 +8,7 @@ class Header extends Component {
       <div className="app-header">
         <h1>React App Secured with Auth0</h1>
         <div className="app-header-links">
-          <Link to="/contacts">Contacts</Link>
+          <Link to="/contacts" className="dashed">Contacts</Link>
         </div>
       </div>
     );

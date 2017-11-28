@@ -9,7 +9,3 @@ div.app-header-links {
   flex-direction: row-reverse;
   align-items: center;
 }
-
-div.app-header-links a {
-  border-bottom: 1px dashed #5C666F;
-}

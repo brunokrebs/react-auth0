@@ -11,3 +11,7 @@ a {
   color: #5C666F;
   text-decoration: none;
 }
+
+a.dashed {
+  border-bottom: 1px dashed #5C666F;
+}
