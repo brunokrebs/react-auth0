@@ -1,4 +1,3 @@
-import history from '../history';
 import auth0 from 'auth0-js';
 
 class Auth {
@@ -18,11 +17,11 @@ class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
   }
 
-  handleAuthentication() {
+  handleAuthentication(history) {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/');
+        history.replace('/contacts');
       } else if (err) {
         history.replace('/');
         console.log(err);
@@ -36,21 +35,19 @@ class Auth {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    history.replace('/');
   }
 
   login() {
     this.auth0.authorize();
   }
 
-  logout() {
+  logout(history) {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   isAuthenticated() {
