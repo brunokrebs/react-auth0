@@ -1,18 +1,12 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Redirect, Route, withRouter} from 'react-router-dom';
 import Header from './Header/Header.js';
 import Contacts from './Contacts/Contacts.js';
 import Home from './Home/Home.js';
 import Callback from "./Auth/Callback";
 import * as Auth0 from 'auth0-web';
 
-const handleAuthentication = (nextState) => {
-  Auth0.handleAuthCallback();
-  // Auth0.subscribe((signedIn) => {
-  //   const destiny = signedIn ? '/contacts' : '/';
-  //   nextState.history.replace(destiny);
-  // });
-};
+const AppComponent = withRouter(props => <App {...props}/>);
 
 class App extends Component {
   constructor() {
@@ -28,26 +22,27 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log('componentWillMount App.js');
-    // this.setState({isAuthenticated: Auth0.isAuthenticated()});
+    const self = this;
+    Auth0.handleAuthCallback();
+    Auth0.subscribe((signedIn) => {
+      self.setState({signedIn});
+    });
   }
 
   render() {
-    // console.log('------ render App.js');
-    // console.log(this.state.isAuthenticated);
-    // console.log('------ render App.js');
+    const {pathname} = this.props.location;
+    if (this.state.signedIn && pathname === '/callback') {
+      return <Redirect to="/contacts"/>
+    }
     return (
       <div className="app">
         <Route path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
         <Route exact path="/contacts" component={Contacts}/>
-        <Route path="/callback" render={(props) => {
-          handleAuthentication(props);
-          return <Callback {...props} />
-        }}/>
+        <Route path="/callback" component={Callback}/>
       </div>
     );
   }
 }
 
-export default App;
+export default AppComponent;
