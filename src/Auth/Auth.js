@@ -3,11 +3,11 @@ import auth0 from 'auth0-js';
 class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'bk-samples.auth0.com',
-    audience: 'https://contacts.mycompany.com/',
+    audience: 'https://contacts.digituz.com.br',
     clientID: '8a7myyLd6leG0HbOhMPtLaSgZ2itD3gK',
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
-    scope: 'read:contacts'
+    scope: 'get:contacts post:contacts delete:contacts'
   });
 
   constructor() {

@@ -11,7 +11,7 @@ class Contacts extends Component {
   componentDidMount() {
     const self = this;
     const config = {
-      url: 'http://localhost:3001/contacts',
+      url: 'http://auth0-wildcard.digituz.com.br/contacts',
       headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
     };
 
