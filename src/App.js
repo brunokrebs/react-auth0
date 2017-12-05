@@ -6,16 +6,14 @@ import Home from './Home/Home.js';
 import Callback from "./Auth/Callback";
 import * as Auth0 from 'auth0-web';
 
-const AppComponent = withRouter(props => <App {...props}/>);
-
 class App extends Component {
   constructor() {
     super();
     Auth0.configure({
-      domain: 'bk-samples.auth0.com',
-      audience: 'https://contacts.digituz.com.br',
-      clientID: '8a7myyLd6leG0HbOhMPtLaSgZ2itD3gK',
-      redirectUri: 'http://localhost:3000/callback',
+      domain: process.env.REACT_APP_AUTH0_DOMAIN,
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
       responseType: 'token id_token',
       scope: 'openid get:contacts post:contacts delete:contacts'
     });
@@ -31,8 +29,12 @@ class App extends Component {
 
   render() {
     const {pathname} = this.props.location;
-    if (this.state.signedIn && pathname === '/callback') {
+    const {signedIn} = this.state;
+    if (signedIn && pathname === '/callback') {
       return <Redirect to="/contacts"/>
+    }
+    if (!signedIn && pathname === '/contacts') {
+      return <Redirect to="/"/>
     }
     return (
       <div className="app">
@@ -45,4 +47,5 @@ class App extends Component {
   }
 }
 
-export default AppComponent;
+// withRouter makes component route-aware so we can check `this.props.location`
+export default withRouter(props => <App {...props}/>);
