@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Input.css';
+import '../BoxShadow/BoxShadow.css';
 
 class Input extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Input extends Component {
   render() {
     return (
       <input
-        className='react-auth0'
+        className='react-auth0 box-shadow'
         value={this.state.value}
         onChange={this.handleChange}
         placeholder={this.props.placeholder}/>
