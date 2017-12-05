@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './Header.css';
 import * as Auth0 from 'auth0-web';
+import Button from "../DOMElements/Button/Button";
 
 class Header extends Component {
   render() {
@@ -10,9 +11,9 @@ class Header extends Component {
       <div className="app-header">
         <h1>React App Secured with Auth0</h1>
         <div className="app-header-links">
-          {!authenticated && <button onClick={Auth0.signIn}>Sign In</button>}
+          {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn} />}
           {authenticated && <Link to="/contacts" className="dashed">Contacts</Link>}
-          {authenticated && <button onClick={() => (Auth0.signOut())}>Sign Out</button>}
+          {authenticated && <Button text="Sign Out" onClick={Auth0.signOut} />}
         </div>
       </div>
     );

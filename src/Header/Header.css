@@ -9,14 +9,3 @@ div.app-header-links {
   flex-direction: row-reverse;
   align-items: center;
 }
-
-div.app-header-links button {
-  border: none;
-  border-bottom: 1px dashed #5C666F;
-  background-color: transparent;
-  font-size: 14px;
-  color: #5C666F;
-  line-height: 28px;
-  margin-left: 15px;
-  cursor: pointer;
-}
