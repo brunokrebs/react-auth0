@@ -12,8 +12,8 @@ class Header extends Component {
         <h1>React App Secured with Auth0</h1>
         <div className="app-header-links">
           {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn} />}
-          {authenticated && <Link text="Contacts" to="/contacts" />}
           {authenticated && <Button text="Sign Out" onClick={Auth0.signOut} />}
+          {authenticated && <Link text="Contacts" to="/contacts" />}
         </div>
       </div>
     );

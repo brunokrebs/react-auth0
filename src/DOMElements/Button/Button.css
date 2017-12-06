@@ -6,4 +6,5 @@ button.react-auth0 {
   padding: 10px;
   font-size: 14px;
   margin-right: 10px;
+  cursor: pointer;
 }
