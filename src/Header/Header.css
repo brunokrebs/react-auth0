@@ -6,6 +6,10 @@ div.app-header {
 div.app-header-links {
   flex-grow: 2;
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   align-items: center;
+}
+
+div.app-header-links :last-child {
+  margin-right: 0;
 }

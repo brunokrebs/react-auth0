@@ -6,6 +6,16 @@ html, body {
   line-height: 28px;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  max-width: 940px;
+  flex-grow: 2;
+}
+
 .default-font-size {
   font-size: 14px;
 }
