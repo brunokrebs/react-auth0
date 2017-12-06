@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Contacts.css';
 import axios from 'axios';
 import Panel from "../DOMElements/Panel/Panel";
+import Table from "../DOMElements/Table/Table";
 
 class Contacts extends Component {
   constructor(props) {
@@ -22,24 +23,14 @@ class Contacts extends Component {
   }
 
   render() {
+    const headers = [
+      { key: 'name', text: 'Name' },
+      { key: 'phone', text: 'Phone' }
+    ];
+    const rows = this.state.contacts;
     return (
       <Panel>
-        <table className="contacts-table">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-          </tr>
-          </thead>
-          <tbody>
-          {this.state.contacts.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.phone}</td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
+        <Table headers={headers} rows={rows} />
       </Panel>
     );
   }
