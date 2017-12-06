@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Input.css';
-import '../BoxShadow/BoxShadow.css';
+import '../Shadow/Shadow.css';
 
 class Input extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Input extends Component {
   render() {
     return (
       <input
-        className='react-auth0 box-shadow default-font-size'
+        className='react-auth0 shadow-lighter default-font-size'
         value={this.state.value}
         onChange={this.handleChange}
         placeholder={this.props.placeholder}/>
