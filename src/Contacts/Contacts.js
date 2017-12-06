@@ -23,44 +23,24 @@ class Contacts extends Component {
 
   render() {
     return (
-      <div>
-        <Panel>
-          <table className="contacts-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
+      <Panel>
+        <table className="contacts-table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+          </tr>
+          </thead>
+          <tbody>
+          {this.state.contacts.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.phone}</td>
             </tr>
-            </thead>
-            <tbody>
-            {this.state.contacts.map((item, index) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-                <td>{item.phone}</td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        </Panel>
-        <Panel>
-          <table className="contacts-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-            </tr>
-            </thead>
-            <tbody>
-            {this.state.contacts.map((item, index) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-                <td>{item.phone}</td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        </Panel>
-      </div>
+          ))}
+          </tbody>
+        </table>
+      </Panel>
     );
   }
 }
