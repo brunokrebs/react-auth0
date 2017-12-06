@@ -29,6 +29,7 @@ class Contacts extends Component {
     const rows = this.state.contacts;
     return (
       <Panel>
+        <h2>List of Contacts</h2>
         <Table headers={headers} rows={rows} />
       </Panel>
     );
