@@ -4,6 +4,7 @@ import LabeledInput from "../DOMElements/LabeledInput/LabeledInput";
 import Button from "../DOMElements/Button/Button";
 import '../DOMElements/Margin/Margin.css';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 class Contact extends Component {
   constructor(props) {
@@ -37,8 +38,17 @@ class Contact extends Component {
     }
   }
 
-  onClick(event) {
-    console.log(this);
+  onClick() {
+    const self = this;
+    const config = {
+      method: 'post',
+      url: 'http://auth0-wildcard.digituz.com.br/contacts/',
+      data: this.state.contact,
+      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+    };
+    axios(config).then(function () {
+      self.props.history.push('/contacts');
+    }).catch(console.log);
   }
 
   handleNameChange(event) {
@@ -68,10 +78,10 @@ class Contact extends Component {
 
         <LabeledInput label="Phone:" placeholder="+55 51 982234343"
                       value={this.state.contact.phone} onChange={(evt) => (this.handlePhoneChange(evt))}/>
-        <Button onClick={(evt) => (this.onClick(evt))} text="Save" className='margin-top'/>
+        <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
       </Panel>
     );
   }
 }
 
-export default Contact;
+export default withRouter(props => <Contact {...props}/>);
