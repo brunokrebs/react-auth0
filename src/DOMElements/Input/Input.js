@@ -6,14 +6,12 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {value: this.props.value || ''};
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  handleChange(event) {
-    if (!this.props.handleChange) {
-      return this.setState({value: event.target.value});
-    }
-    this.props.handleChange(event);
+  onChange(event) {
+    this.setState({value: event.target.value});
+    this.props.onChange(event);
   }
 
   render() {
@@ -21,7 +19,7 @@ class Input extends Component {
       <input
         className='react-auth0 shadow-lighter default-font-size'
         value={this.state.value}
-        onChange={this.handleChange}
+        onChange={this.onChange}
         placeholder={this.props.placeholder}/>
     )
   }
