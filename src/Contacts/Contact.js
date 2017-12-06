@@ -22,52 +22,10 @@ class Contact extends Component {
     this.onClick.bind(this);
   }
 
-  componentDidMount() {
-    const self = this;
-    const {contactId} = this.state;
-
-    // loading contact details
-    if (contactId !== 'new') {
-      const config = {
-        url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-      };
-      axios(config).then(function (response) {
-        self.setState({contact: response.data});
-      }).catch(console.log);
-    }
-  }
-
-  onClick() {
-    const self = this;
-    const config = {
-      method: 'post',
-      url: 'http://auth0-wildcard.digituz.com.br/contacts/',
-      data: this.state.contact,
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-    };
-    axios(config).then(function () {
-      self.props.history.push('/contacts');
-    }).catch(console.log);
-  }
-
-  handleNameChange(event) {
-    this.setState({
-      contact: {
-        ...this.state.contact,
-        name: event.target.value
-      }
-    });
-  }
-
-  handlePhoneChange(event) {
-    this.setState({
-      contact: {
-        ...this.state.contact,
-        phone: event.target.value
-      }
-    });
-  }
+  componentDidMount = componentDidMount;
+  onClick = onClick;
+  handleNameChange = handleNameChange;
+  handlePhoneChange = handlePhoneChange;
 
   render() {
     return (
@@ -85,3 +43,50 @@ class Contact extends Component {
 }
 
 export default withRouter(props => <Contact {...props}/>);
+
+function componentDidMount() {
+  const self = this;
+  const {contactId} = this.state;
+
+  // loading contact details
+  if (contactId !== 'new') {
+    const config = {
+      url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
+      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+    };
+    axios(config).then(function (response) {
+      self.setState({contact: response.data});
+    }).catch(console.log);
+  }
+}
+
+function onClick() {
+  const self = this;
+  const config = {
+    method: 'post',
+    url: 'http://auth0-wildcard.digituz.com.br/contacts/',
+    data: this.state.contact,
+    headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+  };
+  axios(config).then(function () {
+    self.props.history.push('/contacts');
+  }).catch(console.log);
+}
+
+function handleNameChange(event) {
+  this.setState({
+    contact: {
+      ...this.state.contact,
+      name: event.target.value
+    }
+  });
+}
+
+function handlePhoneChange(event) {
+  this.setState({
+    contact: {
+      ...this.state.contact,
+      phone: event.target.value
+    }
+  });
+}
