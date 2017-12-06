@@ -6,6 +6,7 @@ import Home from './Home/Home.js';
 import Callback from './Auth/Callback';
 import Transaction from './Transaction/Transaction';
 import * as Auth0 from 'auth0-web';
+import Contact from "./Contacts/Contact";
 
 class App extends Component {
   constructor() {
@@ -42,6 +43,7 @@ class App extends Component {
         <Route path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
         <Route exact path="/contacts" component={Contacts}/>
+        <Route exact path="/contacts/:contact" component={Contact}/>
         <Route exact path="/transaction" component={Transaction}/>
         <Route path="/callback" component={Callback}/>
       </div>
