@@ -14,3 +14,11 @@ table.react-auth0 th {
 table.react-auth0 td {
   border-bottom: 1px solid #eee;
 }
+
+table.react-auth0 .table-actions {
+  text-align: right;
+}
+
+table.react-auth0 .table-actions :last-child {
+  margin-right: 0;
+}
