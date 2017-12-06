@@ -3,19 +3,38 @@ import Panel from "../DOMElements/Panel/Panel";
 import LabeledInput from "../DOMElements/LabeledInput/LabeledInput";
 import Button from "../DOMElements/Button/Button";
 import '../DOMElements/Margin/Margin.css';
+import axios from 'axios';
 
 class Contact extends Component {
   constructor(props) {
     super(props);
+    let {contactId} = this.props.match.params;
     this.state = {
+      contactId,
       contact: {
-        name: 'Bruno',
+        name: '',
         phone: ''
       }
     };
     this.handleNameChange.bind(this);
     this.handlePhoneChange.bind(this);
     this.onClick.bind(this);
+  }
+
+  componentDidMount() {
+    const self = this;
+    const {contactId} = this.state;
+
+    // loading contact details
+    if (contactId !== 'new') {
+      const config = {
+        url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+      };
+      axios(config).then(function (response) {
+        self.setState({contact: response.data});
+      }).catch(console.log);
+    }
   }
 
   onClick(event) {
@@ -45,11 +64,11 @@ class Contact extends Component {
       <Panel>
         <h2>Contact Form</h2>
         <LabeledInput label="Name:" placeholder="Contact Name"
-                      value={this.state.contact.name} onChange={(evt) => {this.handleNameChange(evt)}}/>
+                      value={this.state.contact.name} onChange={(evt) => (this.handleNameChange(evt))}/>
 
         <LabeledInput label="Phone:" placeholder="+55 51 982234343"
-                      value={this.state.contact.phone} onChange={(evt) => {this.handlePhoneChange(evt)}}/>
-        <Button onClick={(evt) => {this.onClick(evt)}} text="Save" className='margin-top' />
+                      value={this.state.contact.phone} onChange={(evt) => (this.handlePhoneChange(evt))}/>
+        <Button onClick={(evt) => (this.onClick(evt))} text="Save" className='margin-top'/>
       </Panel>
     );
   }
