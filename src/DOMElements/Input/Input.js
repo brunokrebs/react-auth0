@@ -5,13 +5,23 @@ import '../Shadow/Shadow.css';
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: this.props.value || ''};
+    this.state = {
+      value: this.props.value || ''
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(event) {
-    this.setState({value: event.target.value});
+    if (!this.props.onChange) {
+      return this.setState({value: event.target.value});
+    }
     this.props.onChange(event);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.value || ''
+    });
   }
 
   render() {
