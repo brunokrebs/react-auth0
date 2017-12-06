@@ -62,9 +62,10 @@ function componentDidMount() {
 
 function onClick() {
   const self = this;
+  const contactId = self.state.contactId === 'new' ? '' : self.state.contactId;
   const config = {
-    method: 'post',
-    url: 'http://auth0-wildcard.digituz.com.br/contacts/',
+    method: contactId ? 'put' : 'post',
+    url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
     data: this.state.contact,
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };
