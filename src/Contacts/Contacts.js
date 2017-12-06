@@ -3,6 +3,8 @@ import axios from 'axios';
 import Panel from "../DOMElements/Panel/Panel";
 import Table from "../DOMElements/Table/Table";
 import {withRouter} from 'react-router-dom';
+import Button from "../DOMElements/Button/Button";
+import Link from "../DOMElements/Link/Link";
 
 class Contacts extends Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class Contacts extends Component {
       <Panel>
         <h2>List of Contacts</h2>
         <Table headers={headers} rows={rows} onEditClick={this.editContact} onRemoveClick={this.removeContact}/>
+        <Link to='/contacts/new' text='Create Contact' />
       </Panel>
     );
   }
