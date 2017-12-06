@@ -6,6 +6,10 @@ html, body {
   line-height: 28px;
 }
 
+.default-font-size {
+  font-size: 14px;
+}
+
 a {
   cursor: pointer;
   color: #5C666F;

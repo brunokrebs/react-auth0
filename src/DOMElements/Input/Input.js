@@ -19,7 +19,7 @@ class Input extends Component {
   render() {
     return (
       <input
-        className='react-auth0 box-shadow'
+        className='react-auth0 box-shadow default-font-size'
         value={this.state.value}
         onChange={this.handleChange}
         placeholder={this.props.placeholder}/>

@@ -14,6 +14,7 @@ class Header extends Component {
           {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn} />}
           {authenticated && <Button text="Sign Out" onClick={Auth0.signOut} />}
           {authenticated && <Link text="Contacts" to="/contacts" />}
+          {authenticated && <Link text="Transaction" to="/transaction" />}
         </div>
       </div>
     );

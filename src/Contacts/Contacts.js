@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './Contacts.css';
 import axios from 'axios';
 import Panel from "../DOMElements/Panel/Panel";
 import Table from "../DOMElements/Table/Table";
