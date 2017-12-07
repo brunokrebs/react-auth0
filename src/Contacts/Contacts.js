@@ -25,7 +25,8 @@ class Contacts extends Component {
     const headers = [
       {key: 'name', text: 'Name'},
       {key: 'phone', text: 'Phone'},
-      {key: 'email', text: 'Email'}
+      {key: 'email', text: 'Email'},
+      {key: 'heritage', text: 'Heritage'}
     ];
     const rows = this.state.contacts;
     return (

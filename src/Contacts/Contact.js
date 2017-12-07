@@ -37,6 +37,9 @@ class Contact extends Component {
 
         <LabeledInput label="Email:" placeholder="someone@somewhere.com"
                       value={this.state.contact.email} onChange={this.handleChange('email')}/>
+
+        <LabeledInput label="Heritage:" placeholder="50,00" type='currency'
+                      value={this.state.contact.heritage} onChange={this.handleChange('heritage')}/>
         <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
       </Panel>
     );
