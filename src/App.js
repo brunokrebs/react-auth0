@@ -4,7 +4,7 @@ import Header from './Header/Header.js';
 import Contacts from './Contacts/Contacts.js';
 import Home from './Home/Home.js';
 import Callback from './Auth/Callback';
-import Transaction from './Transaction/Transaction';
+import Transaction from './Transactions/Transaction';
 import * as Auth0 from 'auth0-web';
 import Contact from "./Contacts/Contact";
 
