@@ -17,25 +17,26 @@ class Contact extends Component {
         phone: ''
       }
     };
-    this.handleNameChange.bind(this);
-    this.handlePhoneChange.bind(this);
+    this.handleChange.bind(this);
     this.onClick.bind(this);
   }
 
   componentDidMount = componentDidMount;
   onClick = onClick;
-  handleNameChange = handleNameChange;
-  handlePhoneChange = handlePhoneChange;
+  handleChange = handleChange;
 
   render() {
     return (
       <Panel>
         <h2>Contact Form</h2>
         <LabeledInput label="Name:" placeholder="Contact Name"
-                      value={this.state.contact.name} onChange={(evt) => (this.handleNameChange(evt))}/>
+                      value={this.state.contact.name} onChange={this.handleChange('name')}/>
 
         <LabeledInput label="Phone:" placeholder="+55 51 982234343"
-                      value={this.state.contact.phone} onChange={(evt) => (this.handlePhoneChange(evt))}/>
+                      value={this.state.contact.phone} onChange={this.handleChange('phone')}/>
+
+        <LabeledInput label="Email:" placeholder="someone@somewhere.com"
+                      value={this.state.contact.email} onChange={this.handleChange('email')}/>
         <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
       </Panel>
     );
@@ -74,20 +75,13 @@ function onClick() {
   }).catch(console.log);
 }
 
-function handleNameChange(event) {
-  this.setState({
-    contact: {
-      ...this.state.contact,
-      name: event.target.value
-    }
-  });
-}
-
-function handlePhoneChange(event) {
-  this.setState({
-    contact: {
-      ...this.state.contact,
-      phone: event.target.value
-    }
-  });
+function handleChange(property) {
+  return (event) => {
+    this.setState({
+      contact: {
+        ...this.state.contact,
+        [property]: event.target.value
+      }
+    });
+  }
 }
