@@ -1,25 +1,27 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import Panel from "../DOMElements/Panel/Panel";
-import Table from "../DOMElements/Table/Table";
+import Panel from '../DOMElements/Panel/Panel';
+import Table from '../DOMElements/Table/Table';
 import {withRouter} from 'react-router-dom';
-import Button from "../DOMElements/Button/Button";
-import Link from "../DOMElements/Link/Link";
+import Link from '../DOMElements/Link/Link';
+import {loadEntityList, removeEntity, editEntity} from '../RestFlex/RestFlex';
 
 class Contacts extends Component {
   constructor(props) {
     super(props);
     this.state = {contacts: []};
+    this.loadContactsList = this.loadContactsList.bind(this);
     this.editContact = this.editContact.bind(this);
     this.removeContact = this.removeContact.bind(this);
-    this.loadContactsList = this.loadContactsList.bind(this);
   }
 
   // methods
-  loadContactsList = loadContactsList;
-  editContact = editContact;
-  removeContact = removeContact;
-  componentDidMount = loadContactsList;
+  loadContactsList = loadEntityList('contacts');
+  editContact = editEntity('contacts');
+  removeContact = async (id) => {
+    await removeEntity('contacts')(id);
+    this.loadContactsList();
+  };
+  componentDidMount = this.loadContactsList;
 
   render() {
     const headers = [
@@ -40,31 +42,3 @@ class Contacts extends Component {
 }
 
 export default withRouter(props => <Contacts {...props} />);
-
-function loadContactsList() {
-  const self = this;
-  const config = {
-    url: process.env.REACT_APP_FLEX_REST + '/contacts',
-    headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-  };
-
-  axios(config).then(function (response) {
-    self.setState({contacts: response.data});
-  }).catch(console.log);
-}
-
-function editContact(id) {
-  this.props.history.push('/contacts/' + id);
-}
-
-function removeContact(id) {
-  const self = this;
-  const config = {
-    method: 'delete',
-    url: process.env.REACT_APP_FLEX_REST + '/contacts/' + id,
-    headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-  };
-  axios(config).then(function () {
-    self.loadContactsList();
-  }).catch(console.log);
-}
