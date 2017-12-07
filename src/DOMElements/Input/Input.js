@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Input.css';
 import '../Shadow/Shadow.css';
+import VMasker from 'vanilla-masker';
 
 class Input extends Component {
   constructor(props) {
@@ -12,6 +13,13 @@ class Input extends Component {
   }
 
   onChange(event) {
+    if (this.props.type === 'currency') {
+      event.target = {
+        ...event.target,
+        value: VMasker.toMoney(event.target.value)
+      };
+    }
+
     if (!this.props.onChange) {
       return this.setState({value: event.target.value});
     }
