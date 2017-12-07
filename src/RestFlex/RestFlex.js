@@ -24,7 +24,7 @@ function editEntity(entity) {
   }
 }
 
-function removeEntity(entity) {
+function removeEntity(entity, cb) {
   return async function(id) {
     const self = this;
     const config = {
@@ -32,6 +32,7 @@ function removeEntity(entity) {
       url: `${process.env.REACT_APP_FLEX_REST}/${entity}/${id}`,
       headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
     };
-    return await axios(config);
+    await axios(config);
+    if (cb) cb();
   };
 }

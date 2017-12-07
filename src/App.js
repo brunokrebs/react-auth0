@@ -4,9 +4,10 @@ import Header from './Header/Header.js';
 import Contacts from './Contacts/Contacts.js';
 import Home from './Home/Home.js';
 import Callback from './Auth/Callback';
-import Transaction from './Transactions/Transaction';
+import Transactions from './Transactions/Transactions';
 import * as Auth0 from 'auth0-web';
 import Contact from "./Contacts/Contact";
+import Transaction from "./Transactions/Transaction";
 
 class App extends Component {
   constructor() {
@@ -17,7 +18,8 @@ class App extends Component {
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
       redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
       responseType: 'token id_token',
-      scope: 'openid get:contacts post:contacts put:contacts delete:contacts'
+      scope: 'openid get:contacts post:contacts put:contacts delete:contacts ' +
+      'get:transactions post:transactions put:transactions delete:transactions'
     });
   }
 
@@ -44,7 +46,8 @@ class App extends Component {
         <Route exact path="/" component={Home}/>
         <Route exact path="/contacts" component={Contacts}/>
         <Route exact path="/contacts/:contactId" component={Contact}/>
-        <Route exact path="/transaction" component={Transaction}/>
+        <Route exact path="/transactions" component={Transactions}/>
+        <Route exact path="/transactions/:transactionId" component={Transaction}/>
         <Route path="/callback" component={Callback}/>
       </div>
     );

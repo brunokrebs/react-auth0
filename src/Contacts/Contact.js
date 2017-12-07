@@ -17,13 +17,10 @@ class Contact extends Component {
         phone: ''
       }
     };
-    this.handleChange.bind(this);
-    this.onClick.bind(this);
+    this.handleChange = handleChange.bind(this);
+    this.onClick = onClick.bind(this);
+    this.componentDidMount = componentDidMount.bind(this);
   }
-
-  componentDidMount = componentDidMount;
-  onClick = onClick;
-  handleChange = handleChange;
 
   render() {
     return (
