@@ -26,7 +26,6 @@ function editEntity(entity) {
 
 function removeEntity(entity, cb) {
   return async function(id) {
-    const self = this;
     const config = {
       method: 'delete',
       url: `${process.env.REACT_APP_FLEX_REST}/${entity}/${id}`,
