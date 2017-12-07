@@ -51,7 +51,7 @@ function componentDidMount() {
   // loading contact details
   if (contactId !== 'new') {
     const config = {
-      url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
+      url: process.env.REACT_APP_FLEX_REST + '/contacts/' + contactId,
       headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
     };
     axios(config).then(function (response) {
@@ -65,7 +65,7 @@ function onClick() {
   const contactId = self.state.contactId === 'new' ? '' : self.state.contactId;
   const config = {
     method: contactId ? 'put' : 'post',
-    url: 'http://auth0-wildcard.digituz.com.br/contacts/' + contactId,
+    url: process.env.REACT_APP_FLEX_REST + '/contacts/' + contactId,
     data: this.state.contact,
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };

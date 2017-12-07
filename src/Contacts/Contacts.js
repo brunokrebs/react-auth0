@@ -42,7 +42,7 @@ export default withRouter(props => <Contacts {...props} />);
 function loadContactsList() {
   const self = this;
   const config = {
-    url: 'http://auth0-wildcard.digituz.com.br/contacts',
+    url: process.env.REACT_APP_FLEX_REST + '/contacts',
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };
 
@@ -59,7 +59,7 @@ function removeContact(id) {
   const self = this;
   const config = {
     method: 'delete',
-    url: 'http://auth0-wildcard.digituz.com.br/contacts/' + id,
+    url: process.env.REACT_APP_FLEX_REST + '/contacts/' + id,
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };
   axios(config).then(function () {
