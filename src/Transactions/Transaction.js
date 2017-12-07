@@ -1,87 +1,42 @@
 import React, {Component} from 'react';
-import Panel from "../DOMElements/Panel/Panel";
-import LabeledInput from "../DOMElements/LabeledInput/LabeledInput";
-import Button from "../DOMElements/Button/Button";
 import '../DOMElements/Margin/Margin.css';
-import axios from 'axios';
+import EntityForm from '../EntityForm/EntityForm';
 import {withRouter} from 'react-router-dom';
 
 class Transaction extends Component {
   constructor(props) {
     super(props);
     let {transactionId} = this.props.match.params;
-    this.state = {
-      transactionId,
-      transaction: {
-        date: '',
-        description: '',
-        amount: 0
-      }
+    const initialTransaction = {
+      date: '',
+      description: '',
+      amount: 0
     };
-    this.handleChange = handleChange.bind(this);
-    this.onClick = onClick.bind(this);
-    this.componentDidMount = componentDidMount.bind(this);
+    transactionId !== 'new' && (initialTransaction._id = transactionId);
+    this.state = {
+      transaction: initialTransaction
+    };
+    this.refreshTransaction = this.refreshTransaction.bind(this);
+  }
+
+  refreshTransaction(transaction) {
+    this.setState({transaction});
   }
 
   render() {
+    const title = 'Transaction Form';
+    const entityName = 'transactions';
+    const inputs = [
+      {field: 'description', label: 'Description', placeholder: 'Happy hour!', type: 'text'},
+      {field: 'amount', label: 'Amount', placeholder: '21.42', type: 'currency'}
+    ];
+
     return (
-      <Panel>
-        <h2>Transaction Form</h2>
-        <LabeledInput label="Date:" placeholder="yyyy/mm/dd"
-                      value={this.state.transaction.date} onChange={this.handleChange('date')}/>
-
-        <LabeledInput label="Description:" placeholder="Happy Hour!"
-                      value={this.state.transaction.description} onChange={this.handleChange('description')}/>
-
-        <LabeledInput label="Amount:" placeholder="someone@somewhere.com" type="currency"
-                      value={this.state.transaction.amount} onChange={this.handleChange('amount')}/>
-
-        <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
-      </Panel>
+      <EntityForm entity={this.state.transaction} entityName={entityName}
+                  title={title} refreshEntity={this.refreshTransaction}
+                  inputs={inputs} />
     );
   }
 }
 
 export default withRouter(props => <Transaction {...props}/>);
-
-function componentDidMount() {
-  const self = this;
-  const {transactionId} = this.state;
-
-  // loading transaction details
-  if (transactionId !== 'new') {
-    const config = {
-      url: process.env.REACT_APP_FLEX_REST + '/transactions/' + transactionId,
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-    };
-    axios(config).then(function (response) {
-      self.setState({transaction: response.data});
-    }).catch(console.log);
-  }
-}
-
-function onClick() {
-  const self = this;
-  const transactionId = self.state.transactionId === 'new' ? '' : self.state.transactionId;
-  const config = {
-    method: transactionId ? 'put' : 'post',
-    url: process.env.REACT_APP_FLEX_REST + '/transactions/' + transactionId,
-    data: this.state.transaction,
-    headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
-  };
-  axios(config).then(function () {
-    self.props.history.push('/transactions');
-  }).catch(console.log);
-}
-
-function handleChange(property) {
-  return (event) => {
-    this.setState({
-      transaction: {
-        ...this.state.transaction,
-        [property]: event.target.value
-      }
-    });
-  }
-}
-

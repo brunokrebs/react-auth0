@@ -13,17 +13,9 @@ class Input extends Component {
   }
 
   onChange(event) {
-    if (this.props.type === 'currency') {
-      event.target = {
-        ...event.target,
-        value: VMasker.toMoney(event.target.value)
-      };
-    }
-
-    if (!this.props.onChange) {
-      return this.setState({value: event.target.value});
-    }
-    this.props.onChange(event);
+    event.target = applyMask(this.props.type, event.target);
+    this.setState({value: event.target.value});
+    this.props && this.props.onChange(event);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,3 +36,13 @@ class Input extends Component {
 }
 
 export default Input;
+
+function applyMask(type, target) {
+  if (type === 'currency') {
+    return {
+      ...target,
+      value: VMasker.toMoney(target.value || '')
+    }
+  }
+  return target;
+}
