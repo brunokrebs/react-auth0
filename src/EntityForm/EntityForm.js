@@ -59,6 +59,9 @@ async function componentDidMount() {
 }
 
 async function onClick(entityName, entity) {
+  if (entity.hasOwnProperty('_id') && entity._id === null) {
+    delete entity._id;
+  }
   const config = {
     method: entity._id ? 'put' : 'post',
     url: `${process.env.REACT_APP_FLEX_REST}/${entityName}/${entity._id || ''}`,
