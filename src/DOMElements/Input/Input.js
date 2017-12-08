@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Input.css';
 import '../Shadow/Shadow.css';
-import VMasker from 'vanilla-masker';
+import {maskJs, maskCurrency} from 'mask-js';
 
 class Input extends Component {
   constructor(props) {
@@ -38,11 +38,16 @@ class Input extends Component {
 export default Input;
 
 function applyMask(type, target) {
-  if (type === 'currency') {
-    return {
-      ...target,
-      value: VMasker.toMoney(target.value || '')
-    }
+  switch (type) {
+    case 'currency':
+      target.value = maskCurrency(target.value);
+      break;
+    case 'date':
+      target.value = maskJs('9999/99/99', target.value);
+      break;
+    case 'phone':
+      target.value = maskJs('(99) 9999?9-9999', target.value);
+      break;
   }
   return target;
 }

@@ -6,12 +6,12 @@
     "auth0-js": "^9.0.0-beta.6",
     "auth0-web": "^0.2.1",
     "axios": "^0.17.1",
+    "mask-js": "^1.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
-    "vanilla-masker": "^1.2.0"
+    "react-scripts": "1.0.17"
   },
   "scripts": {
     "start": "react-scripts start",
