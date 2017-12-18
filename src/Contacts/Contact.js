@@ -25,11 +25,11 @@ class Contact extends Component {
     const title = 'Contact Form';
     const entityName = 'contacts';
     const inputs = [
-      {field: 'name', label: 'Name:', placeholder: 'Contact Name', type: 'text'},
-      {field: 'birthday', label: 'Birthday:', placeholder: '1980/06/01', type: 'date'},
-      {field: 'phone', label: 'Phone:', placeholder: '+55 51 982234343', type: 'phone'},
-      {field: 'email', label: 'Email:', placeholder: 'someone@somewhere.com', type: 'text'},
-      {field: 'heritage', label: 'Heritage:', placeholder: '50,00', type: 'currency'}
+      {field: 'name', label: 'Name', placeholder: 'e.g. Bruno Krebs', type: 'text', required: true},
+      {field: 'birthday', label: 'Birthday', placeholder: 'e.g. 1980/06/01', type: 'date'},
+      {field: 'phone', label: 'Phone', placeholder: 'e.g. +55 51 982234343', type: 'phone'},
+      {field: 'email', label: 'Email', placeholder: 'e.g. someone@somewhere.com', type: 'text'},
+      {field: 'heritage', label: 'Heritage', placeholder: 'e.g. 50,00', type: 'currency'}
     ];
 
     return (
