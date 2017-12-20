@@ -18,12 +18,11 @@ class Transactions extends Component {
   }
 
   requestGrants() {
-    Auth0.auth0Client.checkSession({
-      audience: 'https://transactions.digituz.com.br/',
-    }, function (err, authResult) {
-      console.log(err);
-      console.log(authResult);
-    });
+    Auth0.silentAuth('transactions', 'https://transactions.digituz.com.br/',
+      'get:transactions post:transactions put:transactions delete:transactions');
+    setTimeout(() => {
+      console.log(Auth0.getExtraToken('transactions'))
+    }, 1000)
   }
 
   render() {
@@ -38,7 +37,7 @@ class Transactions extends Component {
         <h2>List of Transactions</h2>
         <Table headers={headers} rows={rows} onEditClick={this.editTransaction} onRemoveClick={this.removeTransaction}/>
         <Link to='/transactions/new' text='Create Transaction'/>
-        <Button onClick={this.requestGrants} text='Request more grants' />
+        <Button onClick={this.requestGrants} text='Request Transactions Grant'/>
       </Panel>
     );
   }
