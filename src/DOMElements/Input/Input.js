@@ -30,7 +30,7 @@ class Input extends Component {
         className='react-auth0 shadow-lighter default-font-size'
         value={this.state.value}
         onChange={this.onChange}
-        placeholder={this.props.placeholder}/>
+        placeholder={'e.g. ' + this.props.placeholder}/>
     )
   }
 }
