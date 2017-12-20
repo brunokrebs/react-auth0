@@ -1,10 +1,10 @@
-circle.react-auth0 {
-  fill: #87cd80;
-  stroke: #6ea667;
+rect.react-auth0 {
+  fill: #cdc881;
+  stroke: #a6a266;
   stroke-width: 0;
 }
 
-circle.react-auth0:hover {
+rect.react-auth0:hover {
   stroke-width: 3;
   cursor: pointer;
 }

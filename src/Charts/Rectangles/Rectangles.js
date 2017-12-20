@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {selectElement, moveElement, releaseElement} from "../Movements/Movements";
+import './Rectangles.css';
 
 class Rectangles extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Rectangles extends Component {
   render() {
     const matrix = `matrix(${this.state.matrix.join(' ')})`;
     return (
-      <rect x="300" y="10" width="100" height="100"
+      <rect className='react-auth0' x="300" y="10" width="100" height="100"
             onMouseDown={(event) => (this.selectElement(event))}
             onMouseMove={(event) => (this.moveElement(event))}
             onMouseUp={(event) => (this.releaseElement(event))}
