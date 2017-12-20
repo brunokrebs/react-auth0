@@ -53,7 +53,7 @@ function addShape(shape) {
   const elementId = generateElementId(shape);
   elements.push({
     props: {
-      type: 'Rectangles',
+      type: shape,
       elementId: elementId,
       key: elementId,
       updateElementLocation: this.updateElementLocation,
