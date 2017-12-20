@@ -14,6 +14,7 @@ class EntityForm extends Component {
       entityData: this.props.entity
     };
     this.handleChange = handleChange.bind(this);
+    this.onCancel = onCancel.bind(this);
     this.onClick = this.onClick.bind(this);
     this.componentDidMount = componentDidMount.bind(this);
   }
@@ -52,6 +53,7 @@ class EntityForm extends Component {
                         field={input.field} key={input.field}/>
         ))}
         <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
+        <Button onClick={() => (this.onCancel())} text="Cancel" className='margin-top'/>
       </Panel>
     );
   }
@@ -82,6 +84,10 @@ async function onClick(entityName, entity) {
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };
   return await axios(config);
+}
+
+function onCancel() {
+  this.props.history.push(`/${this.state.entityName}`);
 }
 
 function handleChange(property) {
