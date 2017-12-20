@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "auth0-js": "^9.0.0-beta.6",
-    "auth0-web": "^1.2.1",
+    "auth0-web": "^1.2.2",
     "axios": "^0.17.1",
     "mask-js": "^1.2.1",
     "react": "^16.2.0",
