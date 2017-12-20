@@ -4,6 +4,8 @@ import Table from '../DOMElements/Table/Table';
 import {withRouter} from 'react-router-dom';
 import Link from '../DOMElements/Link/Link';
 import {editEntity, loadEntityList, removeEntity} from '../RestFlex/RestFlex';
+import Button from "../DOMElements/Button/Button";
+import * as Auth0 from 'auth0-web';
 
 class Transactions extends Component {
   constructor(props) {
@@ -13,6 +15,15 @@ class Transactions extends Component {
     this.editTransaction = editEntity('transactions').bind(this);
     this.removeTransaction = removeEntity('transactions', this.loadTransactionsList).bind(this);
     this.componentDidMount = this.loadTransactionsList;
+  }
+
+  requestGrants() {
+    Auth0.auth0Client.checkSession({
+      audience: 'https://transactions.digituz.com.br/',
+    }, function (err, authResult) {
+      console.log(err);
+      console.log(authResult);
+    });
   }
 
   render() {
@@ -27,6 +38,7 @@ class Transactions extends Component {
         <h2>List of Transactions</h2>
         <Table headers={headers} rows={rows} onEditClick={this.editTransaction} onRemoveClick={this.removeTransaction}/>
         <Link to='/transactions/new' text='Create Transaction'/>
+        <Button onClick={this.requestGrants} text='Request more grants' />
       </Panel>
     );
   }
