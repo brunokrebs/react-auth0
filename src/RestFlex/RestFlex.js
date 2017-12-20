@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Auth0 from "auth0-web/index";
+import * as Auth0 from 'auth0-web';
 
 export {
   loadEntityList, editEntity, removeEntity
