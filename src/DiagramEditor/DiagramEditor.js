@@ -7,15 +7,13 @@ import Circles from "../Charts/Circles/Circles";
 import Auth0Logo from "../Charts/Auth0/Auth0Logo";
 
 class DiagramEditor extends Component {
-  selectedElement;
-
   constructor(props) {
     super(props);
     this.addShape = addShape.bind(this);
     this.saveDiagram = saveDiagram.bind(this);
-    this.updateElementLocation = updateElementLocation.bind(this);
     this.onMouseDown = onMouseDown.bind(this);
     this.onMouseUp = onMouseUp.bind(this);
+    this.updateElementLocation = updateElementLocation.bind(this);
     this.onMouseMove = onMouseMove.bind(this);
     this.state = {
       elements: [],
@@ -66,22 +64,56 @@ function addShape(shape) {
 }
 
 function onMouseDown(event) {
-  console.log('onMouseDown');
-  console.log(event);
-  this.elementSelected = true;
-}
-
-function onMouseUp(event) {
-  console.log('onMouseUp');
-  console.log(event);
-  this.elementSelected = false;
+  if (this.elementSelected) return;
+  const matrix = event.target.getAttribute('matrix').split(',');
+  const type = event.target.getAttribute('type');
+  this.currentX = event.clientX;
+  this.currentY = event.clientY;
+  this.elementSelected = {
+    elementId: event.target.id,
+    type: type,
+    matrix: matrix
+  };
 }
 
 function onMouseMove(event) {
-  if (!this.elementSelected) return;
-  console.log('onMouseMove');
-  console.log(event.target);
+  if (!this.elementSelected) {
+    return;
+  }
+  const dx = event.clientX - this.currentX;
+  const dy = event.clientY - this.currentY;
+  const newMatrix = this.elementSelected.matrix;
+
+  newMatrix[4] = parseInt(newMatrix[4]) + dx;
+  newMatrix[5] = parseInt(newMatrix[5]) + dy;
+
+  this.currentX = event.clientX;
+  this.currentY = event.clientY;
+
+  this.updateElementLocation(newMatrix);
 }
+
+function onMouseUp() {
+  this.elementSelected = null;
+}
+
+function updateElementLocation(newMatrix) {
+  if (!this.elementSelected) return;
+  const {elementId, type} = this.elementSelected;
+  const elements = this.state.elements.filter(element => (element.props.elementId !== elementId));
+  elements.push({
+    props: {
+      type: type,
+      elementId: elementId,
+      key: elementId,
+      matrix: newMatrix
+    }
+  });
+  this.setState({
+    elements: elements
+  });
+}
+
 
 function saveDiagram() {
   console.log(this.state.elements);
@@ -90,20 +122,4 @@ function saveDiagram() {
 function generateElementId(elementType) {
   const time = (new Date()).getTime();
   return `${elementType}-${time}`;
-}
-
-function updateElementLocation(elementBeingDragged) {
-  const elements = this.state.elements.filter(element => (element.props.elementId !== elementBeingDragged.props.elementId));
-  elements.push({
-    props: {
-      type: elementBeingDragged.props.type,
-      elementId: elementBeingDragged.props.elementId,
-      key: elementBeingDragged.props.elementId,
-      updateElementLocation: this.updateElementLocation,
-      matrix: elementBeingDragged.props.matrix
-    }
-  });
-  this.setState({
-    elements: elements
-  });
 }
