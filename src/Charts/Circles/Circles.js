@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import './Circles.css'
 
 class Circles extends Component {
   render() {
     return (
-      <circle cx={50} cy={50} r={10} fill="red"/>
+      <circle className='react-auth0' cx="50" cy="50" r="40"/>
     );
   }
 }
