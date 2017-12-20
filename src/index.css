@@ -33,3 +33,7 @@ a {
 a.dashed {
   border-bottom: 1px dashed #5C666F;
 }
+
+*:focus {
+  outline: none;
+}
