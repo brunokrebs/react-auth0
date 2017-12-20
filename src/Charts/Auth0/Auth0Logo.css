@@ -1,0 +1,10 @@
+path.react-auth0-logo {
+  fill: #ec5424;
+  stroke: #b8411c;
+  stroke-width: 0;
+}
+
+path.react-auth0-logo:hover {
+  stroke-width: 2;
+  cursor: pointer;
+}
