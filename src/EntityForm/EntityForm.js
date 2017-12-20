@@ -5,8 +5,16 @@ import Button from "../DOMElements/Button/Button";
 import '../DOMElements/Margin/Margin.css';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import Link from "../DOMElements/Link/Link";
 
 class EntityForm extends Component {
+
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      entityData: nextProps.entity || {}
+    });
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +22,9 @@ class EntityForm extends Component {
       entityData: this.props.entity
     };
     this.handleChange = handleChange.bind(this);
-    this.onCancel = onCancel.bind(this);
     this.onClick = this.onClick.bind(this);
     this.componentDidMount = componentDidMount.bind(this);
   }
-
   onClick() {
     const missingProperties = this.props.inputs
       .filter(input => input.required)
@@ -37,12 +43,6 @@ class EntityForm extends Component {
     this.props.history.push(`/${this.state.entityName}`);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      entityData: nextProps.entity || {}
-    });
-  }
-
   render() {
     return (
       <Panel>
@@ -53,7 +53,7 @@ class EntityForm extends Component {
                         field={input.field} key={input.field}/>
         ))}
         <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
-        <Button onClick={() => (this.onCancel())} text="Cancel" className='margin-top'/>
+        <Link text="Cancel" to={'/' + this.state.entityName} />
       </Panel>
     );
   }
@@ -84,10 +84,6 @@ async function onClick(entityName, entity) {
     headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
   };
   return await axios(config);
-}
-
-function onCancel() {
-  this.props.history.push(`/${this.state.entityName}`);
 }
 
 function handleChange(property) {
