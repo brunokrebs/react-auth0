@@ -8,9 +8,7 @@ class Canvas extends Component {
   render() {
     return (
       <svg className='react-canvas'>
-        <Circles />
-        <Auth0Logo />
-        <Rectangles />
+        {this.props.children}
       </svg>
     );
   }
