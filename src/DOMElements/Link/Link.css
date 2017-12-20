@@ -6,4 +6,5 @@ a.react-auth0 {
   color: #5c666f;
   margin-right: 10px;
   cursor: pointer;
+  display: inline-block;
 }

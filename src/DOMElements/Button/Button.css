@@ -3,7 +3,8 @@ button.react-auth0 {
   border-radius: 3px;
   background-color: #EB5424;
   color: #fff;
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
   margin-right: 10px;
   cursor: pointer;
+  line-height: 28px;
 }
