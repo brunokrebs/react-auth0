@@ -10,15 +10,13 @@ class Auth0Logo extends Component {
     this.selectElement = selectElement.bind(this);
     this.moveElement = moveElement.bind(this);
     this.releaseElement = releaseElement.bind(this);
-    this.state = {
-      matrix: [1, 0, 0, 1, 0, 0]
-    }
+    this.updateElementLocation = props.updateElementLocation;
   }
 
   render() {
-    const matrix = `matrix(${this.state.matrix.join(' ')}) scale(0.4) rotate(180)`;
+    const matrix = `matrix(${this.props.matrix.join(' ')}) scale(0.4) rotate(180)`;
     return (
-      <path className='react-auth0-logo' d="M-600 -100 c-1.8 -2.9 -27.9 -85.6 -29.1 -92.2 -2.1 -10.7 -2.1 -31.4 -0.1 -42.0
+      <path id={this.props.elementId} className='react-auth0-logo' d="M-600 -100 c-1.8 -2.9 -27.9 -85.6 -29.1 -92.2 -2.1 -10.7 -2.1 -31.4 -0.1 -42.0
     5.1 -26.7 18.6 -49.6 39.9 -67.5 10.6 -8.9 71.2 -52.0 73.1 -52.0 1.9 0 62.5 43.1 73.0 51.9
     21.1 17.8 34.2 39.5 39.5 65.6 2.5 12.1 2.7 31.7 0.4 43.9 -0.8 4.7 -7.7 27.4 -15.2 50.5 l-13.7
     42.0 -83.7 0.3 c-46.0 0.1 -83.9 -0.1 -84.1 -0.5z m149.8 -78.3 l40.9 -.5 -32.5 -23.4 c-17.8 -12.9

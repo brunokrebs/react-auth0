@@ -17,6 +17,7 @@ class DiagramEditor extends Component {
     this.addCircle = addCircle.bind(this);
     this.addAuth0 = addAuth0.bind(this);
     this.saveDiagram = saveDiagram.bind(this);
+    this.updateElementLocation = updateElementLocation.bind(this);
     this.state = {
       elements: [],
       size: 0
@@ -24,13 +25,21 @@ class DiagramEditor extends Component {
   }
 
   render() {
+    const components = {
+      'Auth0Logo': Auth0Logo,
+      'Circles': Circles,
+      'Rectangles': Rectangles
+    };
     return (
       <Panel>
         <Button className='margin-bottom' onClick={this.addRectangles} text='+ Square' />
         <Button className='margin-bottom' onClick={this.addCircle} text='+ Circle' />
         <Button className='margin-bottom' onClick={this.addAuth0} text='+ Auth0' />
         <Canvas>
-          {this.state.elements}
+          {this.state.elements.map(element => {
+            const Component = components[element.props.type];
+            return <Component {...element.props} />
+          })}
         </Canvas>
         <Button className='margin-bottom' onClick={this.saveDiagram} text='Save' />
       </Panel>
@@ -53,9 +62,15 @@ function updateSize(event) {
 function addRectangles() {
   const elements = this.state.elements;
   const elementId = generateElementId('rect');
-  elements.push(
-    <Rectangles elementId={elementId} key={elementId} />
-  );
+  elements.push({
+    props: {
+      type: 'Rectangles',
+      elementId: elementId,
+      key: elementId,
+      updateElementLocation: this.updateElementLocation,
+      matrix: [1, 0, 0, 1, 0, 0]
+    }
+  });
   this.setState({
     elements
   });
@@ -64,9 +79,15 @@ function addRectangles() {
 function addCircle() {
   const elements = this.state.elements;
   const elementId = generateElementId('circle');
-  elements.push(
-    <Circles elementId={elementId} key={elementId} />
-  );
+  elements.push({
+    props: {
+      type: 'Circles',
+      elementId: elementId,
+      key: elementId,
+      updateElementLocation: this.updateElementLocation,
+      matrix: [1, 0, 0, 1, 0, 0]
+    }
+  });
   this.setState({
     elements
   });
@@ -75,9 +96,15 @@ function addCircle() {
 function addAuth0() {
   const elements = this.state.elements;
   const elementId = generateElementId('auth0');
-  elements.push(
-    <Auth0Logo elementId={elementId} key={elementId} />
-  );
+  elements.push({
+    props: {
+      type: 'Auth0Logo',
+      elementId: elementId,
+      key: elementId,
+      updateElementLocation: this.updateElementLocation,
+      matrix: [1, 0, 0, 1, 0, 0]
+    }
+  });
   this.setState({
     elements
   });
@@ -90,4 +117,20 @@ function saveDiagram() {
 function generateElementId(elementType) {
   const time = (new Date()).getTime();
   return `${elementType}-${time}`;
+}
+
+function updateElementLocation(elementBeingDragged) {
+  const elements = this.state.elements.filter(element => (element.props.elementId !== elementBeingDragged.props.elementId));
+  elements.push({
+    props: {
+      type: elementBeingDragged.props.type,
+      elementId: elementBeingDragged.props.elementId,
+      key: elementBeingDragged.props.elementId,
+      updateElementLocation: this.updateElementLocation,
+      matrix: elementBeingDragged.props.matrix
+    }
+  });
+  this.setState({
+    elements: elements
+  });
 }

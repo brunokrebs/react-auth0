@@ -8,15 +8,13 @@ class Circles extends Component {
     this.selectElement = selectElement.bind(this);
     this.moveElement = moveElement.bind(this);
     this.releaseElement = releaseElement.bind(this);
-    this.state = {
-      matrix: [1, 0, 0, 1, 0, 0]
-    }
+    this.updateElementLocation = props.updateElementLocation;
   }
 
   render() {
-    const matrix = `matrix(${this.state.matrix.join(' ')})`;
+    const matrix = `matrix(${this.props.matrix.join(' ')})`;
     return (
-      <circle className='react-auth0' cx="50" cy="50" r="40" transform={matrix}
+      <circle id={this.props.elementId} className='react-auth0' cx="50" cy="50" r="40" transform={matrix}
               onMouseDown={(event) => (this.selectElement(event))}
               onMouseMove={(event) => (this.moveElement(event))}
               onMouseUp={(event) => (this.releaseElement(event))}/>

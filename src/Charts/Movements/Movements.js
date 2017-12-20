@@ -10,16 +10,15 @@ function moveElement(event) {
   }
   const dx = event.clientX - this.currentX;
   const dy = event.clientY - this.currentY;
-  const newMatrix = this.state.matrix;
+  const newMatrix = this.props.matrix;
+
   newMatrix[4] += dx;
   newMatrix[5] += dy;
 
-  this.setState({
-    matrix: newMatrix
-  });
-
   this.currentX = event.clientX;
   this.currentY = event.clientY;
+
+  this.updateElementLocation(this);
 }
 
 function releaseElement() {
