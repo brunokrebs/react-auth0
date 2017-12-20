@@ -11,36 +11,16 @@ class DiagramEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.addRectangles = addRectangles.bind(this);
-    this.addCircle = addCircle.bind(this);
-    this.addAuth0 = addAuth0.bind(this);
+    this.addShape = addShape.bind(this);
     this.saveDiagram = saveDiagram.bind(this);
     this.updateElementLocation = updateElementLocation.bind(this);
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseDown = onMouseDown.bind(this);
+    this.onMouseUp = onMouseUp.bind(this);
+    this.onMouseMove = onMouseMove.bind(this);
     this.state = {
       elements: [],
       size: 0
     }
-  }
-
-  onMouseDown(event) {
-    console.log('onMouseDown');
-    console.log(event);
-    this.elementSelected = true;
-  }
-
-  onMouseUp(event) {
-    console.log('onMouseUp');
-    console.log(event);
-    this.elementSelected = false;
-  }
-
-  onMouseMove(event) {
-    if (!this.elementSelected) return;
-    console.log('onMouseMove');
-    console.log(event.target);
   }
 
   render() {
@@ -51,9 +31,9 @@ class DiagramEditor extends Component {
     };
     return (
       <Panel>
-        <Button className='margin-bottom' onClick={this.addRectangles} text='+ Square' />
-        <Button className='margin-bottom' onClick={this.addCircle} text='+ Circle' />
-        <Button className='margin-bottom' onClick={this.addAuth0} text='+ Auth0' />
+        <Button className='margin-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square' />
+        <Button className='margin-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle' />
+        <Button className='margin-bottom' onClick={() => (this.addShape('Auth0Logo'))} text='+ Auth0' />
         <Canvas onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
           {this.state.elements.map(element => {
             const Component = components[element.props.type];
@@ -68,9 +48,9 @@ class DiagramEditor extends Component {
 
 export default DiagramEditor;
 
-function addRectangles() {
+function addShape(shape) {
   const elements = this.state.elements;
-  const elementId = generateElementId('rect');
+  const elementId = generateElementId(shape);
   elements.push({
     props: {
       type: 'Rectangles',
@@ -85,38 +65,22 @@ function addRectangles() {
   });
 }
 
-function addCircle() {
-  const elements = this.state.elements;
-  const elementId = generateElementId('circle');
-  elements.push({
-    props: {
-      type: 'Circles',
-      elementId: elementId,
-      key: elementId,
-      updateElementLocation: this.updateElementLocation,
-      matrix: [1, 0, 0, 1, 0, 0]
-    }
-  });
-  this.setState({
-    elements
-  });
+function onMouseDown(event) {
+  console.log('onMouseDown');
+  console.log(event);
+  this.elementSelected = true;
 }
 
-function addAuth0() {
-  const elements = this.state.elements;
-  const elementId = generateElementId('auth0');
-  elements.push({
-    props: {
-      type: 'Auth0Logo',
-      elementId: elementId,
-      key: elementId,
-      updateElementLocation: this.updateElementLocation,
-      matrix: [1, 0, 0, 1, 0, 0]
-    }
-  });
-  this.setState({
-    elements
-  });
+function onMouseUp(event) {
+  console.log('onMouseUp');
+  console.log(event);
+  this.elementSelected = false;
+}
+
+function onMouseMove(event) {
+  if (!this.elementSelected) return;
+  console.log('onMouseMove');
+  console.log(event.target);
 }
 
 function saveDiagram() {
