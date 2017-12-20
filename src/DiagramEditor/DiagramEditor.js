@@ -29,16 +29,16 @@ class DiagramEditor extends Component {
     };
     return (
       <Panel>
-        <Button className='margin-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square' />
-        <Button className='margin-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle' />
-        <Button className='margin-bottom' onClick={() => (this.addShape('Auth0Logo'))} text='+ Auth0' />
+        <Button className='margin-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square'/>
+        <Button className='margin-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle'/>
+        <Button className='margin-bottom' onClick={() => (this.addShape('Auth0Logo'))} text='+ Auth0'/>
         <Canvas onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
           {this.state.elements.map(element => {
             const Component = components[element.props.type];
             return <Component {...element.props} />
           })}
         </Canvas>
-        <Button className='margin-bottom' onClick={this.saveDiagram} text='Save' />
+        <Button className='margin-bottom' onClick={this.saveDiagram} text='Save'/>
       </Panel>
     );
   }
@@ -64,7 +64,11 @@ function addShape(shape) {
 }
 
 function onMouseDown(event) {
-  if (this.elementSelected) return;
+  if (this.elementSelected ||
+    event.target.tagName === 'svg' ||
+    !event.target.getAttribute('matrix')) {
+    return;
+  }
   const matrix = event.target.getAttribute('matrix').split(',');
   const type = event.target.getAttribute('type');
   this.currentX = event.clientX;
