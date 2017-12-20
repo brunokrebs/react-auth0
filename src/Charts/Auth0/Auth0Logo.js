@@ -1,48 +1,18 @@
 import React, {Component} from 'react';
 import './Auth0Logo.css';
+import {selectElement, moveElement, releaseElement} from "../Movements/Movements";
 
 class Auth0Logo extends Component {
-  currentX = 0;
-  currentY = 0;
   moving = false;
 
   constructor(props) {
     super(props);
-    this.selectElement = this.selectElement.bind(this);
-    this.moveElement = this.moveElement.bind(this);
+    this.selectElement = selectElement.bind(this);
+    this.moveElement = moveElement.bind(this);
+    this.releaseElement = releaseElement.bind(this);
     this.state = {
       matrix: [1, 0, 0, 1, 0, 0]
     }
-  }
-
-  selectElement(event) {
-    this.currentX = event.clientX;
-    this.currentY = event.clientY;
-    this.moving = true;
-  }
-
-  moveElement(event) {
-    if (!this.moving) {
-      return;
-    }
-    const dx = event.clientX - this.currentX;
-    const dy = event.clientY - this.currentY;
-    const newMatrix = this.state.matrix;
-    newMatrix[4] += dx;
-    newMatrix[5] += dy;
-
-    this.setState({
-      matrix: newMatrix
-    });
-
-    this.currentX = event.clientX;
-    this.currentY = event.clientY;
-  }
-
-  releaseElement(event) {
-    this.currentX = 0;
-    this.currentY = 0;
-    this.moving = false;
   }
 
   render() {
