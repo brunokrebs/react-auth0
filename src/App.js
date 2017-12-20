@@ -20,7 +20,8 @@ class App extends Component {
       redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
       responseType: 'token id_token',
       scope: 'openid get:contacts post:contacts put:contacts delete:contacts ' +
-      'get:transactions post:transactions put:transactions delete:transactions'
+      'get:transactions post:transactions put:transactions delete:transactions ' +
+      'get:diagrams post:diagrams put:diagrams delete:diagrams'
     });
   }
 
