@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect, Route, withRouter} from 'react-router-dom';
 import Header from './Header/Header.js';
-import Charts from './Charts/Charts.js';
 import Contacts from './Contacts/Contacts.js';
 import Home from './Home/Home.js';
 import Callback from './Auth/Callback';
@@ -9,6 +8,7 @@ import Transactions from './Transactions/Transactions';
 import * as Auth0 from 'auth0-web';
 import Contact from "./Contacts/Contact";
 import Transaction from "./Transactions/Transaction";
+import DiagramEditor from "./DiagramEditor/DiagramEditor";
 
 class App extends Component {
   constructor() {
@@ -45,7 +45,7 @@ class App extends Component {
       <div className="app">
         <Route path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/charts" component={Charts}/>
+        <Route exact path="/diagram-editor" component={DiagramEditor}/>
         <Route exact path="/contacts" component={Contacts}/>
         <Route exact path="/contacts/:contactId" component={Contact}/>
         <Route exact path="/transactions" component={Transactions}/>
