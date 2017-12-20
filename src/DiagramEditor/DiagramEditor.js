@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Canvas from "../Charts/Canvas";
 import Panel from "../DOMElements/Panel/Panel";
-import LabeledInput from '../DOMElements/LabeledInput/LabeledInput';
 import Button from "../DOMElements/Button/Button";
 import Rectangles from "../Charts/Rectangles/Rectangles";
 import Circles from "../Charts/Circles/Circles";
@@ -17,6 +16,7 @@ class DiagramEditor extends Component {
     this.addRectangles = this.addRectangles.bind(this);
     this.addCircle = this.addCircle.bind(this);
     this.addAuth0 = this.addAuth0.bind(this);
+    this.saveDiagram = this.saveDiagram.bind(this);
     this.state = {
       elements: [],
       size: 0
@@ -35,8 +35,9 @@ class DiagramEditor extends Component {
 
   addRectangles() {
     const elements = this.state.elements;
+    const elementId = DiagramEditor.generateElementId('rect');
     elements.push(
-      <Rectangles />
+      <Rectangles elementId={elementId} key={elementId} />
     );
     this.setState({
       elements
@@ -45,8 +46,9 @@ class DiagramEditor extends Component {
 
   addCircle() {
     const elements = this.state.elements;
+    const elementId = DiagramEditor.generateElementId('circle');
     elements.push(
-      <Circles />
+      <Circles elementId={elementId} key={elementId} />
     );
     this.setState({
       elements
@@ -55,12 +57,22 @@ class DiagramEditor extends Component {
 
   addAuth0() {
     const elements = this.state.elements;
+    const elementId = DiagramEditor.generateElementId('auth0');
     elements.push(
-      <Auth0Logo />
+      <Auth0Logo elementId={elementId} key={elementId} />
     );
     this.setState({
       elements
     });
+  }
+
+  saveDiagram() {
+    console.log(this.state.elements);
+  }
+
+  static generateElementId(elementType) {
+    const time = (new Date()).getTime();
+    return `${elementType}-${time}`;
   }
 
   render() {
@@ -72,8 +84,7 @@ class DiagramEditor extends Component {
         <Canvas>
           {this.state.elements}
         </Canvas>
-        <LabeledInput label='Size' placeholder='20'
-                      value={this.state.size} onChange={(event) => (this.updateSize(event))} />
+        <Button className='margin-bottom' onClick={this.saveDiagram} text='Save' />
       </Panel>
     );
   }
