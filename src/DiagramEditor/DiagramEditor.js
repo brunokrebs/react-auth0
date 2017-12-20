@@ -11,17 +11,36 @@ class DiagramEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.selectElement = selectElement.bind(this);
-    this.updateSize = updateSize.bind(this);
     this.addRectangles = addRectangles.bind(this);
     this.addCircle = addCircle.bind(this);
     this.addAuth0 = addAuth0.bind(this);
     this.saveDiagram = saveDiagram.bind(this);
     this.updateElementLocation = updateElementLocation.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
     this.state = {
       elements: [],
       size: 0
     }
+  }
+
+  onMouseDown(event) {
+    console.log('onMouseDown');
+    console.log(event);
+    this.elementSelected = true;
+  }
+
+  onMouseUp(event) {
+    console.log('onMouseUp');
+    console.log(event);
+    this.elementSelected = false;
+  }
+
+  onMouseMove(event) {
+    if (!this.elementSelected) return;
+    console.log('onMouseMove');
+    console.log(event.target);
   }
 
   render() {
@@ -35,7 +54,7 @@ class DiagramEditor extends Component {
         <Button className='margin-bottom' onClick={this.addRectangles} text='+ Square' />
         <Button className='margin-bottom' onClick={this.addCircle} text='+ Circle' />
         <Button className='margin-bottom' onClick={this.addAuth0} text='+ Auth0' />
-        <Canvas>
+        <Canvas onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
           {this.state.elements.map(element => {
             const Component = components[element.props.type];
             return <Component {...element.props} />
@@ -48,16 +67,6 @@ class DiagramEditor extends Component {
 }
 
 export default DiagramEditor;
-
-function selectElement(event) {
-  this.selectedElement = event.target;
-}
-
-function updateSize(event) {
-  this.setState({
-    size: event.target.value
-  });
-}
 
 function addRectangles() {
   const elements = this.state.elements;
