@@ -47,14 +47,14 @@ class DiagramEditor extends Component {
         <LabeledInput label='Diagram Name' placeholder='My Beautiful Diagram'
                       onChange={this.updateDiagramTitle} value={this.state.diagram.title} />
 
-        <Button className='margin-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square'/>
-        <Button className='margin-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle'/>
-        <Button className='margin-bottom' onClick={() => (this.addShape('Auth0Logo'))} text='+ Auth0'/>
+        <Button className='margin-top-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square'/>
+        <Button className='margin-top-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle'/>
+        <Button className='margin-top-bottom' onClick={() => (this.addShape('Auth0Logo'))} text='+ Auth0'/>
 
         <Canvas onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
           {this.state.diagram.elements.map(element => {
-            const Component = components[element.props.type];
-            return <Component {...element.props} key={element.elementId} />
+            const Component = components[element.type];
+            return <Component {...element} key={element.elementId} />
           })}
         </Canvas>
         <Button className='margin-bottom' onClick={this.saveDiagram} text='Save'/>
@@ -161,12 +161,12 @@ function generateElementId(elementType) {
   return `${elementType}-${time}`;
 }
 
-function updateDiagramTitle(title) {
+function updateDiagramTitle(event) {
   const diagram = this.state.diagram;
   this.setState({
     state: {
       ...diagram,
-      title
+      title: event.target.value
     }
   });
 }
