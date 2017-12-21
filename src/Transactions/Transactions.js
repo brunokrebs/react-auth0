@@ -19,9 +19,9 @@ class Transactions extends Component {
 
   render() {
     const headers = [
-      {key: 'date', text: 'Date'},
-      {key: 'description', text: 'Description'},
-      {key: 'amount', text: 'Amount'}
+      {key: 'date', text: 'Date', type: 'date'},
+      {key: 'description', text: 'Description', type: 'text'},
+      {key: 'amount', text: 'Amount', type: 'currency'}
     ];
     const rows = this.state.transactions;
     return (

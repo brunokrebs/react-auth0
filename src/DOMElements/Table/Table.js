@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Table.css';
 import Button from "../Button/Button";
+import {applyMask} from "../../utils";
 
 class Table extends Component {
   render() {
@@ -22,7 +23,10 @@ class Table extends Component {
         {rows.map((row, idx) => (
           <tr key={idx}>
             {headers.map((header, idx) => (
-              <td key={idx}>{row[header.key]}</td>
+              <td key={idx}>
+                {header.type === 'currency' ? '$ ' : ''}
+                {applyMask(header.type, row[header.key])}
+              </td>
             ))}
             {showTableActions && <td className='table-actions'>
               {onEditClick && <Button onClick={() => (this.props.onEditClick(row._id))} text='Edit'/>}

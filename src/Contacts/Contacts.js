@@ -21,7 +21,7 @@ class Contacts extends Component {
       {key: 'name', text: 'Name'},
       {key: 'phone', text: 'Phone'},
       {key: 'email', text: 'Email'},
-      {key: 'heritage', text: 'Heritage'}
+      {key: 'heritage', text: 'Patrimony', type: 'currency'}
     ];
     const rows = this.state.contacts;
     return (
