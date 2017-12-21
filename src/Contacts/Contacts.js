@@ -9,7 +9,8 @@ class Contacts extends Component {
   constructor(props) {
     super(props);
     this.state = {contacts: []};
-    this.loadContactsList = loadEntityList('contacts').bind(this);
+    this.loadContactsList = loadEntityList('contacts', 'https://contacts.digituz.com.br/',
+      'get:contacts post:contacts put:contacts delete:contacts').bind(this);
     this.editContact = editEntity('contacts').bind(this);
     this.removeContact = removeEntity('contacts', this.loadContactsList).bind(this);
     this.componentDidMount = this.loadContactsList;
