@@ -91,11 +91,11 @@ async function onClick(entityName, entity) {
 }
 
 function handleChange(property) {
-  return (event) => {
+  return (newValue) => {
     this.setState({
       entityData: {
         ...this.state.entityData,
-        [property]: event.target.value
+        [property]: newValue
       }
     });
   }

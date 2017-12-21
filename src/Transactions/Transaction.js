@@ -8,7 +8,7 @@ class Transaction extends Component {
     super(props);
     let {transactionId} = this.props.match.params;
     const initialTransaction = {
-      date: '',
+      date: new Date(),
       description: '',
       amount: 0
     };
@@ -27,6 +27,7 @@ class Transaction extends Component {
     const title = 'Transaction Form';
     const entityName = 'transactions';
     const inputs = [
+      {field: 'date', label: 'Date', placeholder: '2018/01/01', type: 'date'},
       {field: 'description', label: 'Description', placeholder: 'Happy hour!', type: 'text'},
       {field: 'amount', label: 'Amount', placeholder: '21.42', type: 'currency'}
     ];

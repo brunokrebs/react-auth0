@@ -13,23 +13,23 @@ class Input extends Component {
   }
 
   onChange(event) {
-    event.target = applyMask(this.props.type, event.target);
-    this.setState({value: event.target.value});
-    this.props && this.props.onChange(event);
+    const value = convertToObject(this.props.type, event.target.value);
+    this.setState({value});
+    this.props && this.props.onChange(value);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      value: nextProps.value || ''
+      value: convertToObject(nextProps.type, nextProps.value || '')
     });
   }
 
   render() {
-    console.log('rendering: ' + this.state.value);
+    const maskedValue = applyMask(this.props.type, this.state.value);
     return (
       <input
         className='react-auth0 shadow-lighter default-font-size'
-        value={this.state.value}
+        value={maskedValue}
         onChange={this.onChange}
         placeholder={'e.g. ' + this.props.placeholder}/>
     )
@@ -38,17 +38,41 @@ class Input extends Component {
 
 export default Input;
 
-function applyMask(type, target) {
+function applyMask(type, value) {
   switch (type) {
     case 'currency':
-      target.value = maskCurrency(target.value);
+      value = maskCurrency(value.toString());
       break;
     case 'date':
-      target.value = maskJs('9999/99/99', target.value);
+      const isDateObject = value.toISOString;
+      if (isDateObject) {
+        const length = value.length >= 10 ? 10 : value.length;
+        value = maskJs('9999/99/99', value.toISOString().slice(0,length).replace(/-/g,""));
+      } else {
+        value = maskJs('9999/99/99', value);
+      }
       break;
     case 'phone':
-      target.value = maskJs('(99) 9999?9-9999', target.value);
+      value = maskJs('(99) 9999?9-9999', value);
       break;
   }
-  return target;
+  return value;
+}
+
+function convertToObject(type, value) {
+  switch (type) {
+    case 'currency':
+      value = Number(value.toString().replace(/\D/g,''));
+      break;
+    case 'date':
+      if (value.length === 10) {
+        const parts = value.split('/');
+        value = new Date(Number(parts[0]), Number(parts[1] - 1), Number(parts[2]));
+      }
+      break;
+    case 'phone':
+      value = value.replace(/\D/g,'');
+      break;
+  }
+  return value;
 }
