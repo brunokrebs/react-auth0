@@ -6,9 +6,9 @@ import Rectangles from "../Charts/Rectangles/Rectangles";
 import Circles from "../Charts/Circles/Circles";
 import Auth0Logo from "../Charts/Auth0/Auth0Logo";
 import LabeledInput from "../DOMElements/LabeledInput/LabeledInput";
-import axios from "axios/index";
+import axios from "axios";
 import {getRestFlexUrl} from "../RestFlex/RestFlex";
-import * as Auth0 from "auth0-web/index";
+import * as Auth0 from "auth0-web";
 
 class DiagramEditor extends Component {
   constructor(props) {
