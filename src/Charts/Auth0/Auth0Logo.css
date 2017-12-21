@@ -5,6 +5,6 @@ path.react-auth0-logo {
 }
 
 path.react-auth0-logo:hover {
-  stroke-width: 2;
+  stroke-width: 0.5;
   cursor: pointer;
 }
