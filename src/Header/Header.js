@@ -12,7 +12,7 @@ class Header extends Component {
         <h1>React App Secured with Auth0</h1>
         <div className="app-header-links">
           {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn} />}
-          {authenticated && <Link text="Diagram Editor" to="/diagram-editor" />}
+          {authenticated && <Link text="Diagrams" to="/diagrams" />}
           {authenticated && <Link text="Transactions" to="/transactions" />}
           {authenticated && <Link text="Contacts" to="/contacts" />}
           {authenticated && <Button text="Sign Out" onClick={Auth0.signOut} />}

@@ -18,10 +18,7 @@ class Diagrams extends Component {
 
   render() {
     const headers = [
-      {key: 'name', text: 'Name'},
-      {key: 'phone', text: 'Phone'},
-      {key: 'email', text: 'Email'},
-      {key: 'heritage', text: 'Heritage'}
+      {key: 'name', text: 'Name'}
     ];
     const rows = this.state.diagrams;
     return (
