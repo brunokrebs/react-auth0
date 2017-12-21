@@ -19,7 +19,7 @@ class App extends Component {
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
       redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
       responseType: 'token id_token',
-      scope: 'openid get:contacts post:contacts put:contacts delete:contacts'
+      scope: 'openid'
     });
   }
 
@@ -37,7 +37,8 @@ class App extends Component {
     if (signedIn && pathname === '/callback') {
       return <Redirect to="/contacts"/>
     }
-    if (!signedIn && pathname === '/contacts') {
+    const restrictedPaths = ['contacts', 'diagrams', 'transactions'];
+    if (!signedIn && restrictedPaths.includes(`/${pathname}`)) {
       return <Redirect to="/"/>
     }
     return (
