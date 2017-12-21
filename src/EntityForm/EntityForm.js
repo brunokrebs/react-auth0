@@ -6,7 +6,7 @@ import '../DOMElements/Margin/Margin.css';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import Link from "../DOMElements/Link/Link";
-import * as Auth0 from "auth0-web/index";
+import * as Auth0 from "auth0-web";
 
 class EntityForm extends Component {
 
