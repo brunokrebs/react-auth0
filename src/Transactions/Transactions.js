@@ -4,14 +4,16 @@ import Table from '../DOMElements/Table/Table';
 import {withRouter} from 'react-router-dom';
 import Link from '../DOMElements/Link/Link';
 import {editEntity, loadEntityList, removeEntity} from '../RestFlex/RestFlex';
-import Button from "../DOMElements/Button/Button";
 
 class Transactions extends Component {
   constructor(props) {
     super(props);
     this.state = {transactions: []};
+    const sort = {
+      date: -1
+    };
     this.loadTransactionsList = loadEntityList('transactions', 'https://transactions.digituz.com.br/',
-      'get:transactions post:transactions put:transactions delete:transactions').bind(this);
+      'get:transactions post:transactions put:transactions delete:transactions', sort).bind(this);
     this.editTransaction = editEntity('transactions').bind(this);
     this.removeTransaction = removeEntity('transactions', this.loadTransactionsList).bind(this);
     this.componentDidMount = this.loadTransactionsList;

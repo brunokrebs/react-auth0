@@ -5,7 +5,7 @@ export {
   loadEntityList, editEntity, removeEntity, getRestFlexUrl
 }
 
-function loadEntityList(entity, audience, scope) {
+function loadEntityList(entity, audience, scope, sort) {
   const restFlexUrl = getRestFlexUrl(entity);
   return async function () {
     const entityToken = Auth0.getExtraToken(entity);
@@ -14,6 +14,9 @@ function loadEntityList(entity, audience, scope) {
     }
     const config = {
       url: restFlexUrl,
+      params: {
+        sort: sort || {}
+      },
       headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(entity)}
     };
 
