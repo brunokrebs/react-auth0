@@ -30,7 +30,7 @@ function removeEntity(entity, cb) {
     const config = {
       method: 'delete',
       url: `${process.env.REACT_APP_FLEX_REST}/${entity}/${id}`,
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+      headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(entity)}
     };
     await axios(config);
     if (cb) cb();

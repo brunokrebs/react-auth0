@@ -6,6 +6,7 @@ import '../DOMElements/Margin/Margin.css';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import Link from "../DOMElements/Link/Link";
+import * as Auth0 from "auth0-web/index";
 
 class EntityForm extends Component {
 
@@ -66,7 +67,7 @@ async function componentDidMount() {
   if (_id) {
     const config = {
       url: `${process.env.REACT_APP_FLEX_REST}/${this.props.entityName}/${_id}`,
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+      headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(this.props.entityName)}
     };
     const response = await axios(config);
     this.props.refreshEntity(response.data);
