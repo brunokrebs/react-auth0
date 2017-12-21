@@ -9,6 +9,7 @@ import * as Auth0 from 'auth0-web';
 import Contact from "./Contacts/Contact";
 import Transaction from "./Transactions/Transaction";
 import DiagramEditor from "./DiagramEditor/DiagramEditor";
+import Diagrams from "./DiagramEditor/Diagrams";
 
 class App extends Component {
   constructor() {
@@ -45,7 +46,8 @@ class App extends Component {
       <div className="app">
         <Route path="/" component={Header}/>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/diagram-editor" component={DiagramEditor}/>
+        <Route exact path="/diagrams" component={Diagrams}/>
+        <Route exact path="/diagrams/:diagramId" component={DiagramEditor}/>
         <Route exact path="/contacts" component={Contacts}/>
         <Route exact path="/contacts/:contactId" component={Contact}/>
         <Route exact path="/transactions" component={Transactions}/>
