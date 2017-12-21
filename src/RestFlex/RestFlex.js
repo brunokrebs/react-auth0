@@ -5,7 +5,7 @@ export {
   loadEntityList, editEntity, removeEntity
 }
 
-async function loadEntityList(entity, audience, scope) {
+function loadEntityList(entity, audience, scope) {
   return async function () {
     const entityToken = Auth0.getExtraToken(entity);
     if (!entityToken) {
