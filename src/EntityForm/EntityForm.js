@@ -7,15 +7,15 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import Link from "../DOMElements/Link/Link";
 import * as Auth0 from "auth0-web";
+import {getRestFlexUrl} from "../RestFlex/RestFlex";
 
 class EntityForm extends Component {
-
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       entityData: nextProps.entity || {}
     });
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +26,7 @@ class EntityForm extends Component {
     this.onClick = this.onClick.bind(this);
     this.componentDidMount = componentDidMount.bind(this);
   }
+
   onClick() {
     const missingProperties = this.props.inputs
       .filter(input => input.required)
@@ -54,7 +55,7 @@ class EntityForm extends Component {
                         field={input.field} key={input.field}/>
         ))}
         <Button onClick={() => (this.onClick())} text="Save" className='margin-top'/>
-        <Link text="Cancel" to={'/' + this.state.entityName} />
+        <Link text="Cancel" to={'/' + this.state.entityName}/>
       </Panel>
     );
   }
@@ -64,9 +65,10 @@ export default withRouter(props => <EntityForm {...props}/>);
 
 async function componentDidMount() {
   const _id = this.state.entityData._id;
+  const restFlexUrl = getRestFlexUrl(this.props.entityName);
   if (_id) {
     const config = {
-      url: `${process.env.REACT_APP_FLEX_REST}/${this.props.entityName}/${_id}`,
+      url: `${restFlexUrl}/${_id}`,
       headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(this.props.entityName)}
     };
     const response = await axios(config);
@@ -78,9 +80,10 @@ async function onClick(entityName, entity) {
   if (entity.hasOwnProperty('_id') && entity._id === null) {
     delete entity._id;
   }
+  const restFlexUrl = getRestFlexUrl(entityName);
   const config = {
     method: entity._id ? 'put' : 'post',
-    url: `${process.env.REACT_APP_FLEX_REST}/${entityName}/${entity._id || ''}`,
+    url: `${restFlexUrl}/${entity._id || ''}`,
     data: entity,
     headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(entityName)}
   };
