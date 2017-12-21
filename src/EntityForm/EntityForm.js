@@ -82,7 +82,7 @@ async function onClick(entityName, entity) {
     method: entity._id ? 'put' : 'post',
     url: `${process.env.REACT_APP_FLEX_REST}/${entityName}/${entity._id || ''}`,
     data: entity,
-    headers: {'Authorization': 'Bearer ' + localStorage.getItem('access_token')}
+    headers: {'Authorization': 'Bearer ' + Auth0.getExtraToken(this.props.entityName)}
   };
   return await axios(config);
 }
