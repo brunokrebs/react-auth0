@@ -45,7 +45,7 @@ class DiagramEditor extends Component {
     return (
       <Panel>
         <LabeledInput label='Diagram Name' placeholder='My Beautiful Diagram'
-                      onChange={this.updateDiagramTitle} value={this.state.diagram.title} />
+                      onChange={(event) => (this.updateDiagramTitle(event))} value={this.state.diagram.title} />
 
         <Button className='margin-top-bottom' onClick={() => (this.addShape('Rectangles'))} text='+ Square'/>
         <Button className='margin-top-bottom' onClick={() => (this.addShape('Circles'))} text='+ Circle'/>
@@ -69,11 +69,9 @@ function addShape(shape) {
   const elements = this.state.diagram.elements;
   const elementId = generateElementId(shape);
   elements.push({
-    props: {
-      type: shape,
-      elementId: elementId,
-      matrix: [1, 0, 0, 1, 0, 0]
-    }
+    type: shape,
+    elementId: elementId,
+    matrix: [1, 0, 0, 1, 0, 0]
   });
   this.setState({
     diagram: {
@@ -164,7 +162,7 @@ function generateElementId(elementType) {
 function updateDiagramTitle(event) {
   const diagram = this.state.diagram;
   this.setState({
-    state: {
+    diagram: {
       ...diagram,
       title: event.target.value
     }
