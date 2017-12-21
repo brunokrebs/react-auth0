@@ -25,6 +25,7 @@ class Input extends Component {
   }
 
   render() {
+    console.log('rendering: ' + this.state.value);
     return (
       <input
         className='react-auth0 shadow-lighter default-font-size'
