@@ -22,6 +22,7 @@ class DiagramEditor extends Component {
     this.updateElementLocation = updateElementLocation.bind(this);
     this.onMouseMove = onMouseMove.bind(this);
     this.updateDiagramTitle = updateDiagramTitle.bind(this);
+    this.componentDidMount = componentDidMount.bind(this);
 
     // defining diagram object
     const initialDiagram = {
