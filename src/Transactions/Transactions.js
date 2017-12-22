@@ -4,6 +4,7 @@ import Table from '../DOMElements/Table/Table';
 import {withRouter} from 'react-router-dom';
 import Link from '../DOMElements/Link/Link';
 import {editEntity, loadEntityList, removeEntity} from '../RestFlex/RestFlex';
+import LineCharts from "../Charts/LineCharts/LineCharts";
 
 class Transactions extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class Transactions extends Component {
         <h2>List of Transactions</h2>
         <Table headers={headers} rows={rows} onEditClick={this.editTransaction} onRemoveClick={this.removeTransaction}/>
         <Link to='/transactions/new' text='Create Transaction'/>
+        <LineCharts/>
       </Panel>
     );
   }
