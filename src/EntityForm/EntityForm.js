@@ -27,7 +27,7 @@ class EntityForm extends Component {
     this.componentDidMount = componentDidMount.bind(this);
   }
 
-  onClick() {
+  async onClick() {
     const missingProperties = this.props.inputs
       .filter(input => input.required)
       .filter(requiredInput => !this.state.entityData[requiredInput.field])
@@ -41,7 +41,7 @@ class EntityForm extends Component {
       return;
     }
 
-    onClick(this.state.entityName, this.state.entityData);
+    await onClick(this.state.entityName, this.state.entityData);
     this.props.history.push(`/${this.state.entityName}`);
   }
 
