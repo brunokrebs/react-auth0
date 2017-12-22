@@ -23,6 +23,7 @@ function convertToObject(type, value) {
 }
 
 function applyMask(type, value) {
+  if (!value) return value;
   switch (type) {
     case 'currency':
       value = maskCurrency(value.toString());
